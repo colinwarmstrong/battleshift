@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20180313201116) do
     t.integer "winner"
     t.integer "player_1_turns"
     t.integer "player_2_turns"
-    t.string "current_turn"
+    t.integer "current_turn"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

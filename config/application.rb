@@ -20,7 +20,15 @@ module BattleshipWeb
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
+    config.before_initialize do |app|
+      app.config.paths.add 'app/services/values', :eager_load => true
+    end
 
+    config.to_prepare do
+      Dir[ File.expand_path(Rails.root.join("app/services/values/*.rb")) ].each do |file|
+        require_dependency file
+      end
+    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
