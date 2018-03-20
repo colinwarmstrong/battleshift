@@ -9,11 +9,11 @@ class Space
 
   def attack!
     @status = if contents && not_attacked?
-      contents.attack! # should be a ship object with attack! defined
-      "Hit"
-    else
-      "Miss"
-    end
+                contents.attack! # should be a ship object with attack! defined
+                "Hit"
+              else
+                "Miss"
+              end
   end
 
   def occupy!(ship)
@@ -24,11 +24,8 @@ class Space
     !!@contents
   end
 
-  private
-
-    def not_attacked?
-      status == "Not Attacked"
-    end
-
+  def not_attacked?
+    status == "Not Attacked"
+  end
 end
 

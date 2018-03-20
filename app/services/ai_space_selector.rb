@@ -16,7 +16,7 @@ class AiSpaceSelector
 
     def non_targeted_spaces
       target_board.board.flatten.select do |raw_space|
-        raw_space.values.first.status.nil?
+        raw_space.values.first.not_attacked?
       end
     end
 end
