@@ -9,7 +9,7 @@ class Space
 
   def attack!
     @status = if contents && not_attacked?
-                contents.attack! # should be a ship object with attack! defined
+                contents.attack!
                 "Hit"
               else
                 "Miss"
