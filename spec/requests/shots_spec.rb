@@ -33,14 +33,12 @@ describe "Api::V1::Shots" do
 
       game = JSON.parse(response.body, symbolize_names: true)
 
-      expected_history = [
-        [
-          {player_1: "Shot resulted in a Hit"},
-          {player_2: "Shot resulted in a Miss"}
-        ]
-      ]
+      expected_messages = "Your shot resulted in a Hit. The computer's shot resulted in a Miss."
+      player_2_targeted_space = game[:player_2_board][:rows].first[:data].first[:status]
 
-      expect(game[:history]).to eq expected_history
+
+      expect(game[:message]).to eq expected_messages
+      expect(player_2_targeted_space).to eq("Hit")
     end
   end
 end

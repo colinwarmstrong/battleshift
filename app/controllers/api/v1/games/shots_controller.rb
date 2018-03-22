@@ -12,21 +12,20 @@ module Api
 
           # player shoots
           result_1 = Shooter.fire!(board: computer.board, target: params[:shot][:target])
-          turn_result << {player_1: "Shot resulted in a #{result_1}"}
+          turn_result << "Your shot resulted in a #{result_1}."
           game.player_1_turns += 1
 
 
           # computer shoots
           result_2 = AiSpaceSelector.new(player.board).fire!
-          turn_result << {player_2: "Shot resulted in a #{result_2}"}
+          turn_result << "The computer's shot resulted in a #{result_2}."
           game.player_2_turns += 1
 
           # should set a message with the status of the attack here
-          game.history << turn_result
 
           # save the state from the above moves
           game.save!
-          render json: game
+          render json: game, message: turn_result.join(" ")
         end
       end
     end
