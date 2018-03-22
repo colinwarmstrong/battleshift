@@ -1,12 +1,11 @@
 require 'spec_helper'
 require './app/services/ship_placer'
-require './app/services/values/ship'
 require './app/services/values/board'
 require './app/services/values/space'
 
 describe ShipPlacer do
   let(:board) { Board.new(4) }
-  let(:ship)  { Ship.new(2)  }
+  let(:ship)  { double(length: 2) }
   subject     { ShipPlacer.new(board: board, ship: ship, start_space: "A1", end_space: "A2") }
 
   it "exists when provided a board and ship" do
