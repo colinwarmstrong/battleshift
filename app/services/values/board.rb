@@ -15,7 +15,7 @@ class Board
     ("1".."26").to_a.shift(@length)
   end
 
-  def create_space_names
+  def space_names
     get_row_letters.map do |letter|
       get_column_numbers.map do |number|
         letter + number
@@ -24,13 +24,13 @@ class Board
   end
 
   def create_spaces
-    create_space_names.map do |name|
+    space_names.map do |name|
       [name, Space.new(name)]
     end.to_h
   end
 
   def assign_spaces_to_rows
-    create_space_names.each_slice(@length).to_a
+    space_names.each_slice(@length).to_a
   end
 
   def create_grid
