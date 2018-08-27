@@ -1,7 +1,7 @@
 class TurnProcessor
   def initialize(game, target)
-    @game   = game
-    @target = target
+    @game     = game
+    @target   = target
     @messages = []
   end
 
