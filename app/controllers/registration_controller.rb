@@ -7,6 +7,7 @@ class RegistrationController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
+      ActivationMailer.activation(@user).deliver_now
       flash[:notice] = 'This account has not yet been activated. Please check your email.'
       redirect_to dashboard_path
     else
