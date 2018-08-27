@@ -11,10 +11,10 @@ describe 'A guest user' do
 
       name = 'John Doe'
 
-      fill_in :email_address, with: 'test@email.com'
-      fill_in :name, with: name
-      fill_in :password, with: 'password123'
-      fill_in :password_confirmation, with: 'password123'
+      fill_in :user_email, with: 'test@email.com'
+      fill_in :user_name, with: name
+      fill_in :user_password, with: 'password123'
+      fill_in :user_password_confirmation, with: 'password123'
 
       click_on 'Submit'
 
