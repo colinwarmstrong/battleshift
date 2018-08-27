@@ -2,8 +2,8 @@ module Api
   module V1
     class GamesController < ActionController::API
       def show
-        if Game.find_by_id(params[:id])
-          game = Game.find(params[:id])
+        game = Game.find_by_id(params[:id])
+        if game
           render json: game
         else
           render status: 400
