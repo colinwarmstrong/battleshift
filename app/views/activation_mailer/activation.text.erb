@@ -1,1 +1,1 @@
-Visit <%= link_to  "here", @url(user_email: current_user.email %> to activate your account.
+Visit <%= link_to  "here", "/activation?user_email=#{@user.email}" %> to activate your account.
