@@ -42,5 +42,4 @@ class TurnProcessor
   def opponent
     Player.new(game.player_2_board)
   end
-
 end

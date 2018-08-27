@@ -6,6 +6,7 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 require 'support/factory_bot'
+require 'database_cleaner'
 
 SimpleCov.start "rails"
 
@@ -28,7 +29,18 @@ SimpleCov.start "rails"
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
-ActiveRecord::Migration.maintain_test_schema!
+
+DatabaseCleaner.strategy = :truncation
+
+RSpec.configure do |c|
+  c.include Capybara::DSL
+  c.before(:each) do #cleans at beginning
+    DatabaseCleaner.clean
+  end
+  c.after(:each) do
+    DatabaseCleaner.clean #after each test cleans
+  end
+end
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
