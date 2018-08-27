@@ -68,6 +68,5 @@ describe "Api::V1::Shots" do
       game = JSON.parse(response.body, symbolize_names: true)
       expect(game[:message]).to eq "Invalid coordinates."
     end
-
   end
 end
