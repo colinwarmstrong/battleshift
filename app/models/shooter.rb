@@ -18,15 +18,16 @@ class Shooter
   end
 
   private
-    attr_reader :board, :target
+  attr_reader :board,
+              :target
 
-    def space
-      @space ||= board.locate_space(target)
-    end
+  def space
+    @space ||= board.locate_space(target)
+  end
 
-    def valid_shot?
-      board.space_names.include?(target)
-    end
+  def valid_shot?
+    board.space_names.include?(target)
+  end
 end
 
 class InvalidAttack < StandardError

@@ -1,5 +1,7 @@
 class Ship
-  attr_reader :length, :damage, :start_space,
+  attr_reader :length,
+              :damage,
+              :start_space,
               :end_space
 
   def initialize(length)
