@@ -1,9 +1,9 @@
 class ActivationController < ApplicationController
   def index
-    @user = User.find_by_email(params[:user_email])
-    @user.update(activated?: true)
-    session[:user_id] = @user.id
+    user = User.find_by_email(params[:user_email])
+    user.update_attributes!(activated: true)
     flash[:notice] = "Thank you! Your account has been activated."
+    session[:user_id] = user.id
     redirect_to dashboard_path
   end
 end
