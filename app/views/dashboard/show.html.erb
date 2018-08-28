@@ -1,1 +1,7 @@
-<h3>Logged in as <%= current_user.name %></h3>
+<%binding.pry%>
+<% if current_user.activated? %>
+  <h3>Logged in as <%= current_user.name %></h3>
+  <h3> Status: Active </h3>
+<% else %>
+  <h3>This account has not yet been activated. Please check your email.</h3>
+<% end %>
