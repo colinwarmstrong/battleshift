@@ -1,6 +1,7 @@
 class Api::V1::Games::ShipsController < ApiController
   def create    
     game = Game.find(ship_params[:game_id])
+    game.current_turn = 0
     board = game.player_1_board
     ship = Ship.new(ship_params[:ship_size])
     start_space = ship_params[:start_space]
