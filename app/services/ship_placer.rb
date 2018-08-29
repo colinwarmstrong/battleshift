@@ -4,6 +4,7 @@ class ShipPlacer
     @ship        = ship
     @start_space = start_space
     @end_space   = end_space
+
   end
 
   def run
@@ -15,6 +16,16 @@ class ShipPlacer
       raise InvalidShipPlacement.new("Ship must be in either the same row or column.")
     end
   end
+
+  def message(ship_length)
+    if ship_length == 3
+      "Successfully placed ship with a size of 3. You have 1 ship(s) to place with a size of 2."
+    elsif ship_length == 2
+      "Successfully placed ship with a size of 2. You have 0 ship(s) to place."
+    end
+
+  end
+
 
   private
   attr_reader :board,
