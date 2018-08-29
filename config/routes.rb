@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   post '/users', to: 'registration#create'
   get '/dashboard', to: 'dashboard#show'
   get '/activation', to: 'activation#index', as: :activation
+  get '/login', to: 'sessions#new', as: :login
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
   namespace :api do
     namespace :v1 do
       resources :games, only: [:show, :create] do
