@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get '/activation', to: 'activation#index', as: :activation
   namespace :api do
     namespace :v1 do
-      resources :games, only: [:show] do
+      resources :games, only: [:show, :create] do
         post "/shots", to: "games/shots#create"
       end
     end
