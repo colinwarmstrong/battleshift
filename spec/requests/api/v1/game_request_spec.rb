@@ -6,4 +6,8 @@ describe 'Games API' do
 
     expect(response).to be_successful
   end
+
+  it "can build a board" do
+    
+  end
 end
