@@ -10,7 +10,7 @@ class Space
   end
 
   def attack!
-    @status = if contents && not_attacked?
+    @status = if occupied? && not_attacked?
                 contents.attack!
                 "Hit"
               else

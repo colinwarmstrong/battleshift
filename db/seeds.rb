@@ -31,8 +31,11 @@ game_attributes = {
   player_2_board: player_2_board,
   player_1_turns: 0,
   player_2_turns: 0,
-  current_turn: "challenger"
+  current_turn: 0
 }
 
 game = Game.new(game_attributes)
 game.save!
+
+User.create(email: "eliotswank@gmail.com", name: 'eliot', password: 'hamburger1', activated: true, token: ENV['BATTLESHIFT_API_KEY'])
+User.create(email: "colinwarmstrong@gmail.com", name: 'Colin', password: 'password', activated: true, token: ENV['BATTLESHIFT_OPPONENT_API_KEY'])
