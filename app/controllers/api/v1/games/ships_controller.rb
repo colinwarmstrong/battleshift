@@ -9,7 +9,7 @@ class Api::V1::Games::ShipsController < ApiController
     end_space = ship_params[:end_space]
     @ship_placer ||= ShipPlacer.new(board: board, ship: ship, start_space: start_space, end_space: end_space)
     @ship_placer.run
-    @game.save!
+    @game.save
     render json: @game, message: @ship_placer.message(ship_params[:ship_size])
   end
 

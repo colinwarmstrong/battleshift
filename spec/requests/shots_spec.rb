@@ -14,7 +14,6 @@ describe "Api::V1::Shots" do
 
 
     it "updates the message and board with a hit" do
-      allow_any_instance_of(AiSpaceSelector).to receive(:fire!).and_return("Miss")
       ShipPlacer.new(board: player_2_board,
                      ship: sm_ship,
                      start_space: "A1",
@@ -37,8 +36,6 @@ describe "Api::V1::Shots" do
     end
 
     it "updates the message and board with a miss" do
-      allow_any_instance_of(AiSpaceSelector).to receive(:fire!).and_return("Miss")
-
       headers = { "CONTENT_TYPE" => "application/json" }
       json_payload = {target: "A1"}.to_json
 
