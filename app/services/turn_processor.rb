@@ -8,9 +8,11 @@ class TurnProcessor
   def run!
     begin
       if @game.current_turn == 'Player 1'
-        attack_opponent
+        attack(opponent)
+        game.player_1_turns += 1
       else
-        attack_player
+        attack(player)
+        game.player_2_turns += 1
       end
       game.save!
     rescue InvalidAttack => e
@@ -26,18 +28,10 @@ class TurnProcessor
 
   attr_reader :game, :target
 
-  def attack_opponent
-    result = Shooter.fire!(board: opponent.board, target: target)
-    @messages << "Your shot resulted in a #{result[:hit_or_miss]}."
-    @messages << 'Battleship sunk.' if result[:sunk] == true
-    game.player_1_turns += 1
-  end
-
-  def attack_player
+  def attack(player)
     result = Shooter.fire!(board: player.board, target: target)
     @messages << "Your shot resulted in a #{result[:hit_or_miss]}."
     @messages << 'Battleship sunk.' if result[:sunk] == true
-    game.player_2_turns += 1
   end
 
   def player
