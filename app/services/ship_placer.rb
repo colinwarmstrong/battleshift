@@ -1,10 +1,9 @@
 class ShipPlacer
-  def initialize(board, ship, start_space, end_space)
-    @board       = board
-    @ship        = ship
-    @start_space = start_space
-    @end_space   = end_space
-
+  def initialize(constraints)
+    @board       = constraints[:board]
+    @ship        = constraints[:ship]
+    @start_space = constraints[:start_space]
+    @end_space   = constraints[:end_space]
   end
 
   def run
@@ -23,9 +22,7 @@ class ShipPlacer
     elsif ship_length == 2
       "Successfully placed ship with a size of 2. You have 0 ship(s) to place."
     end
-
   end
-
 
   private
   attr_reader :board,

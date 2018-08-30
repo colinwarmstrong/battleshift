@@ -21,12 +21,11 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'pry'
+  gem 'capybara'
 end
 
 group :test do
   gem 'simplecov'
-  gem 'database_cleaner'
-  gem 'capybara'
   gem 'shoulda-matchers'
   gem 'launchy'
 end
