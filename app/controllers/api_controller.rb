@@ -21,4 +21,9 @@ class ApiController < ActionController::API
       game.save!
     end
   end
+
+  def wrong_player
+    @current_user.nil?
+  end
+
 end

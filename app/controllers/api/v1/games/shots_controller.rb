@@ -1,5 +1,5 @@
 class Api::V1::Games::ShotsController < ApiController
-  before_action :validate_turn, :validate_coordinate, :validate_game
+  before_action :validate_player, :validate_turn, :validate_coordinate, :validate_game
 
   def create
     game = Game.find(params[:game_id])
@@ -40,6 +40,13 @@ class Api::V1::Games::ShotsController < ApiController
    if game.winner != nil
       render json: game, status: 400, message: "Invalid move. Game over."
    end
+  end
+
+  def validate_player
+    game = Game.find(params[:game_id])
+    if set_user.nil?
+      render json: game, status: 401, message: "Unauthorized"
+    end
   end
 
   def board
