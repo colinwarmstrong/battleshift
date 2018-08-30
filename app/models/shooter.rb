@@ -10,7 +10,11 @@ class Shooter
     if valid_shot?
       result[:hit_or_miss] = space.attack!
       if space.contents
-        result[:sunk] = true if space.contents.is_sunk?
+        if space.contents.is_sunk?
+          result[:sunk] = true
+          @board.ship_count -= 1
+          result[:win] = true if @board.ship_count == 0
+        end
       end
       result
     else

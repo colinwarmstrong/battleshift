@@ -1,5 +1,5 @@
 class Api::V1::Games::ShotsController < ApiController
-  before_action :validate_turn, :validate_coordinate
+  before_action :validate_turn, :validate_coordinate, :validate_game
 
   def create
     game = Game.find(params[:game_id])
@@ -33,6 +33,13 @@ class Api::V1::Games::ShotsController < ApiController
     board.board.flatten.any? do |coordinate|
       coordinate.include?(params[:shot][:target])
     end
+  end
+
+  def validate_game
+    game = Game.find(params[:game_id])
+   if game.winner != nil
+      render json: game, status: 400, message: "Invalid move. Game over."
+   end
   end
 
   def board
