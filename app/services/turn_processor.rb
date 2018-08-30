@@ -3,15 +3,16 @@ class TurnProcessor
     @game     = game
     @target   = target
     @messages = []
+
   end
 
   def run!
     begin
       if @game.current_turn == 'Player 1'
-        attack(opponent)
+        attack(opponent, @game.player_2_board)
         game.player_1_turns += 1
       else
-        attack(player)
+        attack(player, @game.player_1_board)
         game.player_2_turns += 1
       end
       game.save!
@@ -28,10 +29,11 @@ class TurnProcessor
 
   attr_reader :game, :target
 
-  def attack(player)
+  def attack(player, board)
     result = Shooter.fire!(board: player.board, target: target)
     @messages << "Your shot resulted in a #{result[:hit_or_miss]}."
     @messages << 'Battleship sunk.' if result[:sunk] == true
+    @messages << 'Game over.' if result[:win] == game_won?(board)
   end
 
   def player
@@ -40,5 +42,11 @@ class TurnProcessor
 
   def opponent
     Player.new(game.player_2_board)
+  end
+
+  def game_won?(board)
+    if board.ship_count == 0
+      return true
+    end
   end
 end
