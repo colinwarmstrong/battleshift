@@ -7,7 +7,7 @@ class Api::V1::Games::ShotsController < ApiController
     turn_processor = TurnProcessor.new(game, params[:shot][:target])
     turn_processor.run!
     set_turn(game)
-    game.save!
+    game.save
 
     render json: game, message: turn_processor.message
   end

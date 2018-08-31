@@ -7,6 +7,9 @@ describe 'GET /api/v1/games/1' do
       player_2_board = Board.new(4)
       sm_ship = Ship.new(2)
       md_ship = Ship.new(3)
+      user_1 = create(:user, token: ENV['BATTLESHIFT_API_KEY'] )
+      user_2 = create(:user, token: ENV['BATTLESHIFT_OPPONENT_API_KEY'])
+
 
       ShipPlacer.new(board: player_1_board,
                      ship: sm_ship,
@@ -37,7 +40,9 @@ describe 'GET /api/v1/games/1' do
                       player_2_board: player_2_board,
                       player_1_turns: 0,
                       player_2_turns: 0,
-                      current_turn: "Player 1"
+                      current_turn: "Player 1",
+                      user_1_id: user_1.id,
+                      user_2_id: user_2.id
                     }
 
       game = Game.new(game_attributes)
