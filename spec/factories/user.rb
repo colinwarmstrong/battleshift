@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :user do
-    email { 'test@email.com' }
+    email { Faker::Internet.email }
     name { 'John Doe' }
     password_digest { BCrypt::Password.create('password') }
-    token { '123456789' }
+    token { ENV['BATTLESHIFT_API_KEY'] }
   end
 end

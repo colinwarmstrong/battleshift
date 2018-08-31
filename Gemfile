@@ -22,6 +22,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'pry'
   gem 'capybara'
+  gem 'faker'
 end
 
 group :test do
