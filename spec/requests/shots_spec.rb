@@ -29,7 +29,7 @@ describe "Api::V1::Shots" do
 
       game = JSON.parse(response.body, symbolize_names: true)
 
-      expected_messages = "Your shot resulted in a Hit. Game over."
+      expected_messages = "Your shot resulted in a Hit."
       player_2_targeted_space = game[:player_2_board][:rows].first[:data].first[:status]
 
       expect(game[:message]).to eq expected_messages
@@ -46,7 +46,7 @@ describe "Api::V1::Shots" do
 
       game = JSON.parse(response.body, symbolize_names: true)
 
-      expected_messages = "Your shot resulted in a Miss. Game over."
+      expected_messages = "Your shot resulted in a Miss."
       player_2_targeted_space = game[:player_2_board][:rows].first[:data].first[:status]
 
       expect(game[:message]).to eq expected_messages
