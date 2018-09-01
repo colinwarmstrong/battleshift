@@ -17,7 +17,7 @@ class ApiController < ActionController::API
       game.current_turn = 1
       game.save!
     else
-      game.current_turn =  0
+      game.current_turn = 0
       game.save!
     end
   end

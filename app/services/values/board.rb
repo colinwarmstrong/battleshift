@@ -1,13 +1,11 @@
 class Board
-  attr_reader :length,
-              :board
-
   attr_accessor :ship_count
+  attr_reader :length, :board
 
-  def initialize(length)
+  def initialize(length, ship_count = 2)
     @length = length
     @board = create_grid
-    @ship_count = 2
+    @ship_count = ship_count
   end
 
   def get_row_letters
@@ -27,9 +25,10 @@ class Board
   end
 
   def create_spaces
-    space_names.map do |name|
-      [name, Space.new(name)]
-    end.to_h
+    space_names.inject({}) do |spaces, name|
+      spaces[name] = Space.new(name)
+      spaces
+    end
   end
 
   def assign_spaces_to_rows
