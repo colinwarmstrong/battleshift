@@ -6,6 +6,6 @@ describe 'Activation Mailer' do
 
     visit activation_path(user_token: user.token)
 
-    expect(User.find(user.id).activated).to be(true)
+    expect(User.find(user.id).activated).to eq(true)
   end
 end
