@@ -11,6 +11,6 @@ describe 'Games API' do
   end
 
   it "can build a board" do
-
+    
   end
 end
