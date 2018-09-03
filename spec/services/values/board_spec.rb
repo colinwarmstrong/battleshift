@@ -61,7 +61,7 @@ describe Board, type: :service do
       expect(grid[1][1]).to have_key('B2')
     end
 
-    it '#locate_spaces()' do
+    it '#locate_space' do
       coordinates = 'A1'
 
       board = Board.new(2)
