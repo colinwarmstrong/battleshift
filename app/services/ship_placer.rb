@@ -1,4 +1,6 @@
 class ShipPlacer
+  attr_reader :board
+
   def initialize(attributes)
     @board       = attributes[:board]
     @ship        = attributes[:ship]
@@ -9,8 +11,10 @@ class ShipPlacer
   def run
     if same_row?
       place_in_row
+      @board.ship_count += 1
     elsif same_column?
       place_in_column
+      @board.ship_count += 1
     else
       raise StandardError.new("Ship must be in either the same row or column.")
     end
@@ -18,9 +22,9 @@ class ShipPlacer
 
   def message(ship_length)
     if ship_length == 3
-      "Successfully placed ship with a size of 3. You have 1 ship(s) to place with a size of 2."
+      "Successfully placed ship with a size of #{ship_length}. You have #{2 - @board.ship_count} ship(s) to place with a size of 2."
     elsif ship_length == 2
-      "Successfully placed ship with a size of 2. You have 0 ship(s) to place."
+      "Successfully placed ship with a size of #{ship_length}. You have #{2 - @board.ship_count} ship(s) to place."
     end
   end
 

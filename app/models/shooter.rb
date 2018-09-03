@@ -19,6 +19,7 @@ class Shooter
   end
 
   private
+  
   attr_reader :board, :target
 
   def valid_shot?
