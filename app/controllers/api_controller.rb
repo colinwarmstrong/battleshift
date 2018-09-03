@@ -11,14 +11,4 @@ class ApiController < ActionController::API
       game.player_2_board
     end
   end
-
-  def set_turn(game)
-    if game.player_1_turns > game.player_2_turns
-      game.current_turn = 1
-      game.save!
-    else
-      game.current_turn = 0
-      game.save!
-    end
-  end
 end

@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20180830184909) do
     t.string "winner"
     t.integer "player_1_turns", default: 0
     t.integer "player_2_turns", default: 0
-    t.integer "current_turn"
+    t.integer "current_turn", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_1_id"
@@ -38,4 +38,5 @@ ActiveRecord::Schema.define(version: 20180830184909) do
     t.string "token"
     t.index ["token"], name: "index_users_on_token", unique: true
   end
+
 end
