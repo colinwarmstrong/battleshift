@@ -1,15 +1,13 @@
 require 'rails_helper'
 
 describe Ship, type: :service do
-  it 'exists' do
-    ship = Ship.new(2)
+  let(:ship) { Ship.new(2) }
 
+  it 'exists' do
     expect(ship).to be_a(Ship)
   end
 
   it 'has attributes' do
-    ship = Ship.new(2)
-
     expect(ship.length).to eq(2)
     expect(ship.damage).to eq(0)
     expect(ship.start_space).to eq(nil)
@@ -18,8 +16,6 @@ describe Ship, type: :service do
 
   describe 'Instance Methods' do
     it '#place' do
-      ship = Ship.new(4)
-
       start_space = 'A1'
       end_space = 'A2'
 
@@ -30,8 +26,6 @@ describe Ship, type: :service do
     end
 
     it '#attack!' do
-      ship = Ship.new(3)
-
       expect(ship.damage).to eq(0)
 
       ship.attack!
@@ -44,8 +38,6 @@ describe Ship, type: :service do
     end
 
     it '#is_sunk?' do
-      ship = Ship.new(2)
-
       expect(ship.is_sunk?).to be(false)
 
       ship.attack!
@@ -54,7 +46,7 @@ describe Ship, type: :service do
 
       ship.attack!
 
-      expect(ship.is_sunk?).to be(true)    
+      expect(ship.is_sunk?).to be(true)
     end
   end
 end

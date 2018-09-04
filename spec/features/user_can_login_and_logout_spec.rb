@@ -25,7 +25,7 @@ describe 'A registered user' do
       click_on 'Login'
 
       fill_in :email, with: user.email
-      fill_in :password, with: 'invalid-password'
+      fill_in :password, with: 'invalid_password'
       click_on 'Login'
 
       expect(current_path).to eq(login_path)
