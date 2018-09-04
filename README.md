@@ -30,5 +30,6 @@ _Rails Version 5.1.6_
 
 ### Contact Info
 
-Eliot Swank [GitHub](https://github.com/EMSwank)
-Colin Armstrong [GitHub](https://github.com/colinwarmstrong)
+- Eliot Swank [GitHub](https://github.com/EMSwank)
+
+- Colin Armstrong [GitHub](https://github.com/colinwarmstrong)
