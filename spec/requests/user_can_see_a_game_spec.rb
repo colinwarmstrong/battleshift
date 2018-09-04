@@ -10,7 +10,6 @@ describe 'GET /api/v1/games/1' do
       user_1 = create(:user, token: ENV['BATTLESHIFT_API_KEY'] )
       user_2 = create(:user, token: ENV['BATTLESHIFT_OPPONENT_API_KEY'])
 
-
       ShipPlacer.new(board: player_1_board,
                      ship: sm_ship,
                      start_space: "A1",
@@ -70,6 +69,33 @@ describe 'GET /api/v1/games/1' do
       get "/api/v1/games/1"
 
       expect(response.status).to be(400)
+    end
+  end
+
+  describe 'PLayer 1 can fire' do
+    it 'and score a hit' do
+      player_1_board = Board.new(4)
+      player_2_board = Board.new(4)
+      user_1 = create(:user, token: ENV['BATTLESHIFT_API_KEY'] )
+      user_2 = create(:user, token: ENV['BATTLESHIFT_OPPONENT_API_KEY'])
+      game = create(:game, player_1_board: player_1_board, player_2_board: player_2_board, user_1_id: user_1.id, user_2_id: user_2.id)
+
+      get "/api/v1/games/#{game.id}/shots"
+      
+      shot = {target: "A1"}.to_json
+      response = post_json(endpoint, shot)
+      response = response.body
+
+      expect(response.status).to eq(200)
+      expect(game[:id]).to be_an Integer
+      expect(game[:current_turn]).to be_a String
+      expect(game[:player_1_board][:rows].count).to eq(4)
+      expect(game[:player_2_board][:rows].count).to eq(4)
+      expect(game[:player_1_board][:rows][0][:name]).to eq("row_a")
+      expect(game[:player_1_board][:rows][3][:data][0][:coordinates]).to eq("D1")
+      expect(game[:player_1_board][:rows][3][:data][0][:coordinates]).to eq("D1")
+      expect(game[:player_1_board][:rows][3][:data][0][:status]).to be_a String
+
     end
   end
 end
