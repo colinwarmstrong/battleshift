@@ -6,16 +6,12 @@ class TurnProcessor
   end
 
   def run!
-    begin
-      if @game.current_turn == 'Player 1'
-        attack(@game.player_2_board, @game.user_1)
-        game.update(current_turn: 1)
-      else
-        attack(@game.player_1_board, @game.user_2)
-        game.update(current_turn: 0)
-      end
-    rescue StandardError => e
-      @messages << e.message
+    if @game.current_turn == 'Player 1'
+      attack(@game.player_2_board, @game.user_1)
+      game.update(current_turn: 1)
+    else
+      attack(@game.player_1_board, @game.user_2)
+      game.update(current_turn: 0)
     end
   end
 

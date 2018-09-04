@@ -79,4 +79,9 @@ describe ShipPlacer do
       ShipPlacer.new(board: board, ship: ship, start_space: "A1", end_space: "C1").run
     }.to raise_error(StandardError)
   end
+
+  it 'returns the correct message after placing a ship' do
+    expect(subject.message(3)).to eq('Successfully placed ship with a size of 3. You have 2 ship(s) to place with a size of 2.')
+    expect(subject.message(2)).to eq('Successfully placed ship with a size of 2. You have 2 ship(s) to place.')
+  end
 end
