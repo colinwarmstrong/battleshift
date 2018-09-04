@@ -9,7 +9,6 @@ describe Board, type: :service do
 
   it 'has attributes' do
     length = 4
-
     board = Board.new(length)
 
     expect(board.ship_count).to eq(0)

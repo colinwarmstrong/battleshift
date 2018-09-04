@@ -1,19 +1,14 @@
 require 'rails_helper'
 
 describe Space, type: :service do
+  let(:coordinates) { double('A1') }
+  let(:space)       { Space.new(coordinates) }
+
   it 'exists' do
-    coordinates = 'A1'
-
-    space = Space.new(coordinates)
-
     expect(space).to be_a(Space)
   end
 
   it 'has attributes' do
-    coordinates = 'A1'
-
-    space = Space.new(coordinates)
-
     expect(space.coordinates).to eq(coordinates)
     expect(space.contents).to eq(nil)
     expect(space.status).to eq('Not Attacked')
@@ -21,19 +16,14 @@ describe Space, type: :service do
 
   describe 'Instance Methods' do
     it '#attack!' do
-      coordinates = 'A1'
-      space = Space.new(coordinates)
-
       expect(space.attack!).to eq('Miss')
       expect(space.status).to eq('Miss')
     end
 
     it '#occupy!' do
-      ship = Ship.new(4)
-      coordinates = 'A1'
-      space = Space.new(coordinates)
-
       expect(space.contents).to eq(nil)
+
+      ship = Ship.new(2)
 
       space.occupy!(ship)
 
@@ -41,9 +31,6 @@ describe Space, type: :service do
     end
 
     it '#not_attacked?' do
-      coordinates = 'A1'
-      space = Space.new(coordinates)
-
       expect(space.not_attacked?).to eq(true)
 
       space.attack!

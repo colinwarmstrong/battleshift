@@ -20,7 +20,7 @@ describe 'A guest user' do
 
       click_on 'Submit'
 
-      expect(current_path).to eq('/dashboard')
+      expect(current_path).to eq(dashboard_path)
       expect(page).to have_content("Logged in as #{name}")
       expect(page).to have_content('This account has not yet been activated. Please check your email.')
     end
@@ -30,7 +30,7 @@ describe 'A guest user' do
 
       click_on 'Register'
 
-      expect(current_path).to eq('/register')
+      expect(current_path).to eq(registration_path)
 
       fill_in :user_email, with: email
       fill_in :user_name, with: name

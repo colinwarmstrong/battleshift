@@ -6,7 +6,7 @@ describe TurnProcessor, type: :service do
   let(:board_1)        { Board.new(4) }
   let(:board_2)        { Board.new(4) }
   let(:target)         { 'A1' }
-  let(:game)           { Game.create(player_1_board: board_1, player_2_board: board_2, user_1_id: user_1.id, user_2_id: user_2.id) }
+  let(:game)           { create(:game, player_1_board: board_1, player_2_board: board_2, user_1_id: user_1.id, user_2_id: user_2.id) }
   let(:turn_processor) { TurnProcessor.new(game, target) }
 
   it 'exists' do

@@ -21,9 +21,17 @@ class Api::V1::Games::ShipsController < ApiController
   end
 
   def ship_placer_attributes
-    {board:       set_board(user, game),
+    {board:       board(user, game),
      ship:        Ship.new(ship_params[:ship_size]),
      start_space: ship_params[:start_space],
      end_space:   ship_params[:end_space]}
+  end
+
+  def board(user, game)
+    if user.token == ENV['BATTLESHIFT_API_KEY']
+      game.player_1_board
+    else
+      game.player_2_board
+    end
   end
 end
