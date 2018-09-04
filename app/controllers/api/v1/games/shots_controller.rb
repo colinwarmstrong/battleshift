@@ -36,7 +36,7 @@ class Api::V1::Games::ShotsController < ApiController
   end
 
   def correct_player?
-    set_user.token == ENV['BATTLESHIFT_API_KEY'] && game.current_turn == 'Player 1' || set_user.token == ENV['BATTLESHIFT_OPPONENT_API_KEY'] && game.current_turn == 'Player 2'
+    set_user.token == request.headers['X-API-Key'] && game.current_turn == 'Player 1' || set_user.token == request.headers['X-API-Key'] && game.current_turn == 'Player 2'
   end
 
   def valid_coordinate?
