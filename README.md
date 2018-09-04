@@ -26,3 +26,9 @@ _Rails Version 5.1.6_
 - `POST /api/v1/games` Send your API key and the email addres of the player you'd like to start a game with. Both players must have accounts.
 - `POST /api/v1/games/:game_id/ships` Places ships.
 - `POST /api/v1/games/:game_id/shots` Send coordinates for your attack.
+
+
+### Contact Info
+
+Eliot Swank [GitHub](https://github.com/EMSwank)
+Colin Armstrong [GitHub](https://github.com/colinwarmstrong)
