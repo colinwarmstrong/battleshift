@@ -30,6 +30,6 @@ class Api::V1::GamesController < ActionController::API
   end
 
   def user_2
-    User.find_by_email(request.body["opponent_email"])
+    User.find_by_token(ENV['BATTLESHIFT_OPPONENT_API_KEY'])
   end
 end

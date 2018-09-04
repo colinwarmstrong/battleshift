@@ -36,7 +36,7 @@ class Api::V1::Games::ShotsController < ApiController
   end
 
   def correct_player?
-    set_user.token == request.headers['X-API-Key'] && game.current_turn == 'Player 1' || set_user.token == request.headers['X-API-Key'] && game.current_turn == 'Player 2'
+    game.user_1_id == set_user.id && game.current_turn == 'Player 1' || game.user_2_id == set_user.id && game.current_turn == 'Player 2'
   end
 
   def valid_coordinate?
