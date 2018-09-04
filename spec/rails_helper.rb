@@ -8,14 +8,6 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'support/factory_bot'
 require 'faker'
-require 'webmock/rspec'
-require 'vcr'
-
-VCR.configure do |config|
-  config.cassette_library_dir = 'spec/casettes'
-  config.hook_into :webmock
-  config.allow_http_connections_when_no_cassette = true
-end
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
