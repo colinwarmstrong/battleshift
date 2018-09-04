@@ -14,6 +14,7 @@ class Api::V1::Games::ShipsController < ApiController
   attr_reader :user, :game
 
   def ship_params
+    binding.pry
     params.permit(:ship_size, :start_space, :end_space, :game_id)
   end
 

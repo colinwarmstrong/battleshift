@@ -5,6 +5,6 @@ class ApiController < ActionController::API
   end
 
   def validate_player
-    render json: game, status: 401, message: "Unauthorized" unless set_user
+    render json: game, status: 401, message: "Unauthorized" unless set_user && set_user.activated
   end
 end
