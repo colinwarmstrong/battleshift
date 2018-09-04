@@ -2,6 +2,10 @@ require 'rails_helper'
 
 describe 'A guest user' do
   context 'visits /' do
+    let(:email)    { 'test@email.com' }
+    let(:name)     { 'John Doe' }
+    let(:password) { 'password123' }
+
     it 'they can register for a new account' do
       visit root_path
 
@@ -9,12 +13,10 @@ describe 'A guest user' do
 
       expect(current_path).to eq('/register')
 
-      name = 'John Doe'
-
-      fill_in :user_email, with: 'test@email.com'
+      fill_in :user_email, with: email
       fill_in :user_name, with: name
-      fill_in :user_password, with: 'password123'
-      fill_in :user_password_confirmation, with: 'password123'
+      fill_in :user_password, with: password
+      fill_in :user_password_confirmation, with: password
 
       click_on 'Submit'
 
@@ -30,11 +32,9 @@ describe 'A guest user' do
 
       expect(current_path).to eq('/register')
 
-      name = 'John Doe'
-
-      fill_in :user_email, with: 'test@email.com'
+      fill_in :user_email, with: email
       fill_in :user_name, with: name
-      fill_in :user_password, with: 'password123'
+      fill_in :user_password, with: password
       fill_in :user_password_confirmation, with: 'password124'
 
       click_on 'Submit'

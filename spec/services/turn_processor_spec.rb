@@ -30,7 +30,9 @@ describe TurnProcessor, type: :service do
         expect(turn_processor.message).to eq('Your shot resulted in a Miss. Game over.')
         expect(game.current_turn).to eq('Player 1')
       end
+    end
 
+    describe 'Edge Cases' do
       it 'raises a StandardError when given invalid coordinates' do
         target = 'D5'
         turn_processor = TurnProcessor.new(game, target)

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Api::V1::Ships' do
+describe 'Api::V1::Games::Ships' do
   context 'POST /api/v1/games/:id/ships' do
     let(:player_1_board) { Board.new(4) }
     let(:player_2_board) { Board.new(4) }
@@ -19,7 +19,7 @@ describe 'Api::V1::Ships' do
 
       post "/api/v1/games/#{game.id}/ships", params: json_payload, headers: headers
 
-      expect(respone).to be_successful
+      expect(response).to be_successful
 
       game_state = JSON.parse(response.body, symbolize_names: true)
 
@@ -35,8 +35,8 @@ describe 'Api::V1::Ships' do
 
       post "/api/v1/games/#{game.id}/ships", params: json_payload, headers: headers
 
-      expect(respone).to be_successful
-      
+      expect(response).to be_successful
+
       game_state = JSON.parse(response.body, symbolize_names: true)
 
       expect(game_state[:id]).to eq(Game.last.id)
@@ -47,27 +47,29 @@ describe 'Api::V1::Ships' do
       expect(game_state[:winner]).to eq(nil)
     end
 
-    it 'raises StandardError if ship size does not match the distance between start and end spaces' do
-      headers = { "CONTENT_TYPE" => "application/json", "X-API-Key" => ENV['BATTLESHIFT_API_KEY'] }
-      json_payload = {ship_size: 3, start_space: 'A1', end_space: 'A4', game_id: game.id}.to_json
+    describe 'Edge Cases' do
+      it 'raises StandardError if ship size does not match the distance between start and end spaces' do
+        headers = { "CONTENT_TYPE" => "application/json", "X-API-Key" => ENV['BATTLESHIFT_API_KEY'] }
+        json_payload = {ship_size: 3, start_space: 'A1', end_space: 'A4', game_id: game.id}.to_json
 
-      expect { post "/api/v1/games/#{game.id}/ships", params: json_payload, headers: headers }.to raise_error(StandardError)
-    end
+        expect { post "/api/v1/games/#{game.id}/ships", params: json_payload, headers: headers }.to raise_error(StandardError)
+      end
 
-    it 'raises StandardError when attempting to place a ship in a space that is already occupied' do
-      headers = { "CONTENT_TYPE" => "application/json", "X-API-Key" => ENV['BATTLESHIFT_API_KEY'] }
-      json_payload = {ship_size: 3, start_space: 'A1', end_space: 'A3', game_id: game.id}.to_json
+      it 'raises StandardError when attempting to place a ship in a space that is already occupied' do
+        headers = { "CONTENT_TYPE" => "application/json", "X-API-Key" => ENV['BATTLESHIFT_API_KEY'] }
+        json_payload = {ship_size: 3, start_space: 'A1', end_space: 'A3', game_id: game.id}.to_json
 
-      post "/api/v1/games/#{game.id}/ships", params: json_payload, headers: headers
+        post "/api/v1/games/#{game.id}/ships", params: json_payload, headers: headers
 
-      expect{ post "/api/v1/games/#{game.id}/ships", params: json_payload, headers: headers }.to raise_error(StandardError)
-    end
+        expect{ post "/api/v1/games/#{game.id}/ships", params: json_payload, headers: headers }.to raise_error(StandardError)
+      end
 
-    it 'raises StandardError when attempting to place a ship that is not in either the same row or column' do
-      headers = { "CONTENT_TYPE" => "application/json", "X-API-Key" => ENV['BATTLESHIFT_API_KEY'] }
-      json_payload = {ship_size: 3, start_space: 'A1', end_space: 'B2', game_id: game.id}.to_json
+      it 'raises StandardError when attempting to place a ship that is not in either the same row or column' do
+        headers = { "CONTENT_TYPE" => "application/json", "X-API-Key" => ENV['BATTLESHIFT_API_KEY'] }
+        json_payload = {ship_size: 3, start_space: 'A1', end_space: 'B2', game_id: game.id}.to_json
 
-      expect { post "/api/v1/games/#{game.id}/ships", params: json_payload, headers: headers }.to raise_error(StandardError)
+        expect { post "/api/v1/games/#{game.id}/ships", params: json_payload, headers: headers }.to raise_error(StandardError)
+      end
     end
   end
 end
