@@ -29,7 +29,7 @@ describe "Api::V1::Shots" do
 
       game = JSON.parse(response.body, symbolize_names: true)
 
-      expected_messages = "Your shot resulted in a Hit. Game over."
+      expected_messages = "Your shot resulted in a Hit."
       player_2_targeted_space = game[:player_2_board][:rows].first[:data].first[:status]
 
       expect(game[:message]).to eq expected_messages
@@ -37,6 +37,11 @@ describe "Api::V1::Shots" do
     end
 
     it "updates the message and board with a miss" do
+      ShipPlacer.new(board: player_2_board,
+                     ship: sm_ship,
+                     start_space: "A2",
+                     end_space: "A3").run
+
       headers = { "CONTENT_TYPE" => "application/json", "X-API-Key" => ENV['BATTLESHIFT_API_KEY'] }
       json_payload = {target: "A1"}.to_json
 
@@ -46,13 +51,15 @@ describe "Api::V1::Shots" do
 
       game = JSON.parse(response.body, symbolize_names: true)
 
-      expected_messages = "Your shot resulted in a Miss. Game over."
+      expected_messages = "Your shot resulted in a Miss."
       player_2_targeted_space = game[:player_2_board][:rows].first[:data].first[:status]
 
       expect(game[:message]).to eq expected_messages
       expect(player_2_targeted_space).to eq("Miss")
     end
+  end
 
+  describe 'Edge Cases' do
     it "updates the message but not the board with invalid coordinates" do
       player_1_board = Board.new(1)
       player_2_board = Board.new(1)

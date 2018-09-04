@@ -1,34 +1,36 @@
 class ShipPlacer
-  def initialize(constraints)
-    @board       = constraints[:board]
-    @ship        = constraints[:ship]
-    @start_space = constraints[:start_space]
-    @end_space   = constraints[:end_space]
+  attr_reader :board
+
+  def initialize(attributes)
+    @board       = attributes[:board]
+    @ship        = attributes[:ship]
+    @start_space = attributes[:start_space]
+    @end_space   = attributes[:end_space]
   end
 
   def run
     if same_row?
       place_in_row
+      @board.ship_count += 1
     elsif same_column?
       place_in_column
+      @board.ship_count += 1
     else
-      raise InvalidShipPlacement.new("Ship must be in either the same row or column.")
+      raise StandardError.new("Ship must be in either the same row or column.")
     end
   end
 
   def message(ship_length)
     if ship_length == 3
-      "Successfully placed ship with a size of 3. You have 1 ship(s) to place with a size of 2."
+      "Successfully placed ship with a size of #{ship_length}. You have #{2 - @board.ship_count} ship(s) to place with a size of 2."
     elsif ship_length == 2
-      "Successfully placed ship with a size of 2. You have 0 ship(s) to place."
+      "Successfully placed ship with a size of #{ship_length}. You have #{2 - @board.ship_count} ship(s) to place."
     end
   end
 
   private
-  attr_reader :board,
-              :ship,
-              :start_space,
-              :end_space
+
+  attr_reader :board, :ship, :start_space, :end_space
 
   def same_row?
     start_space[0] == end_space[0]
@@ -41,15 +43,14 @@ class ShipPlacer
   def place_in_row
     row = start_space[0]
     range = start_space[1]..end_space[1]
-    msg = "Ship size must be equal to the number of spaces you are trying to fill."
-    raise InvalidShipPlacement unless range.count == ship.length
+    raise StandardError.new("Invalid ship placement") unless range.count == ship.length
     range.each { |column| place_ship(row, column) }
   end
 
   def place_in_column
     column = start_space[1]
-    range   = start_space[0]..end_space[0]
-    raise InvalidShipPlacement unless range.count == ship.length
+    range = start_space[0]..end_space[0]
+    raise StandardError.new("Invalid ship placement") unless range.count == ship.length
     range.each { |row| place_ship(row, column) }
   end
 
@@ -57,15 +58,9 @@ class ShipPlacer
     coordinates = "#{row}#{column}"
     space = board.locate_space(coordinates)
     if space.occupied?
-      raise InvalidShipPlacement.new("Attempting to place ship in a space that is already occupied.")
+      raise StandardError.new("Attempting to place ship in a space that is already occupied.")
     else
       space.occupy!(ship)
     end
-  end
-end
-
-class InvalidShipPlacement < StandardError
-  def initialize(msg = "Invalid ship placement")
-    super
   end
 end

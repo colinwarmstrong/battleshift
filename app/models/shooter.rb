@@ -1,46 +1,32 @@
 class Shooter
-  def initialize(board:, target:)
-    @board     = board
-    @target    = target
-    @message   = ""
+  def initialize(attributes = {})
+    @board  = attributes[:board]
+    @target = attributes[:target]
   end
 
   def fire!
     result = {}
     if valid_shot?
       result[:hit_or_miss] = space.attack!
-      if space.contents
-        if space.contents.is_sunk?
-          result[:sunk] = true
-          @board.ship_count -= 1
-          result[:win] = true if @board.ship_count == 0
-        end
+      if space.contents && space.contents.is_sunk?
+        result[:sunk] = true
+        @board.ship_count -= 1
       end
       result
     else
-      raise InvalidAttack.new("Invalid coordinates.")
+      raise StandardError.new('Invalid coordinates.')
     end
   end
 
-  def self.fire!(board:, target:)
-    new(board: board, target: target).fire!
-  end
-
   private
-  attr_reader :board,
-              :target
-
-  def space
-    @space ||= board.locate_space(target)
-  end
+  
+  attr_reader :board, :target
 
   def valid_shot?
     board.space_names.include?(target)
   end
-end
 
-class InvalidAttack < StandardError
-  def initialize(msg = "Invalid attack.")
-    super(msg)
+  def space
+    @space ||= board.locate_space(target)
   end
 end

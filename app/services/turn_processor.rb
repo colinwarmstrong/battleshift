@@ -3,21 +3,15 @@ class TurnProcessor
     @game     = game
     @target   = target
     @messages = []
-
   end
 
   def run!
-    begin
-      if @game.current_turn == 'Player 1'
-        attack(opponent, @game.player_2_board, @game.user_1)
-        game.player_1_turns += 1
-      else
-        attack(player, @game.player_1_board, @game.user_2)
-        game.player_2_turns += 1
-      end
-      game.save!
-    rescue InvalidAttack => e
-      @messages << e.message
+    if @game.current_turn == 'Player 1'
+      attack(@game.player_2_board, @game.user_1)
+      game.update(current_turn: 1)
+    else
+      attack(@game.player_1_board, @game.user_2)
+      game.update(current_turn: 0)
     end
   end
 
@@ -27,27 +21,18 @@ class TurnProcessor
 
   private
 
-  attr_reader :game, :target
+  attr_reader :game, :target, :messages
 
-  def attack(player, board, user)
-    result = Shooter.fire!(board: player.board, target: target)
-    @messages << "Your shot resulted in a #{result[:hit_or_miss]}."
-    @messages << 'Battleship sunk.' if result[:sunk] == true
-    @messages << 'Game over.' if result[:win] == game_won?(board, user)
-  end
-
-  def player
-    Player.new(game.player_1_board)
-  end
-
-  def opponent
-    Player.new(game.player_2_board)
+  def attack(board, user)
+    result = Shooter.new(board: board, target: target).fire!
+    messages << "Your shot resulted in a #{result[:hit_or_miss]}."
+    messages << 'Battleship sunk.' if result[:sunk] == true
+    messages << 'Game over.' if game_won?(board, user)
   end
 
   def game_won?(board, user)
     if board.ship_count == 0
-      @game.winner = user.email
-      @game.save!
+      game.update(winner: user.email)
       return true
     end
   end

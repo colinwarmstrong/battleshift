@@ -52,7 +52,7 @@ describe 'GET /api/v1/games/1' do
       actual  = JSON.parse(response.body, symbolize_names: true)
       expected = Game.last
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(actual[:id]).to eq(expected.id)
       expect(actual[:current_turn]).to eq(expected.current_turn)
       expect(actual[:player_1_board][:rows].count).to eq(4)
