@@ -23,10 +23,6 @@ class Api::V1::Games::ShotsController < ApiController
     @game ||= Game.find(shot_params[:game_id])
   end
 
-  def validate_player
-    render json: game, status: 401, message: "Unauthorized" unless set_user
-  end
-
   def validate_game
     render json: game, status: 400, message: "Invalid move. Game over." unless game.winner.nil?
   end
