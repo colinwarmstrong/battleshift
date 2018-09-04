@@ -29,7 +29,7 @@ class Api::V1::Games::ShipsController < ApiController
   end
 
   def board(user, game)
-    if user.token == request.headers['X-API-Key']
+    if user.token == ENV['BATTLESHIFT_API_KEY']
       game.player_1_board
     else
       game.player_2_board
