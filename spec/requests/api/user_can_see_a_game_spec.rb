@@ -10,7 +10,6 @@ describe 'GET /api/v1/games/1' do
       user_1 = create(:user, token: ENV['BATTLESHIFT_API_KEY'] )
       user_2 = create(:user, token: ENV['BATTLESHIFT_OPPONENT_API_KEY'])
 
-
       ShipPlacer.new(board: player_1_board,
                      ship: sm_ship,
                      start_space: "A1",
