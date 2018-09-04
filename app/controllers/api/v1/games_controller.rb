@@ -15,7 +15,7 @@ class Api::V1::GamesController < ActionController::API
   private
 
   def game_params
-    params.permit(:id)
+    params.permit(:id, :opponent_email)
   end
 
   def game_attributes
@@ -30,6 +30,6 @@ class Api::V1::GamesController < ActionController::API
   end
 
   def user_2
-    User.find_by_token(ENV['BATTLESHIFT_OPPONENT_API_KEY'])
+    User.find_by_email(game_params[:opponent_email])
   end
 end
