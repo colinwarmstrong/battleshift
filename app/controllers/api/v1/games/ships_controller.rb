@@ -1,6 +1,7 @@
 class Api::V1::Games::ShipsController < ApiController
+  before_action :validate_player
+
   def create
-    @user = set_user
     @game ||= Game.find(ship_params[:game_id])
     ship_placer.run
     @game.save
