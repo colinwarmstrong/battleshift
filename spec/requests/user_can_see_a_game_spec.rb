@@ -71,3 +71,4 @@ describe 'GET /api/v1/games/1' do
       expect(response.status).to be(400)
     end
   end
+end
