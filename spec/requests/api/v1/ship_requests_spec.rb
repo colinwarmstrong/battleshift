@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe 'Api::V1::Ships' do
   context 'POST /api/v1/games/:id/ships' do
-    let(:player_1_board)   { Board.new(4) }
-    let(:player_2_board)   { Board.new(4) }
-    let(:game)    {
+    let(:player_1_board) { Board.new(4) }
+    let(:player_2_board) { Board.new(4) }
+    let(:game) {
       create(:game,
         player_1_board: player_1_board,
         player_2_board: player_2_board,
@@ -13,11 +13,13 @@ describe 'Api::V1::Ships' do
       )
     }
 
-    it 'places a ship' do
+    it 'places both ships for a player and returns correct messages' do
       headers = { "CONTENT_TYPE" => "application/json", "X-API-Key" => ENV['BATTLESHIFT_API_KEY'] }
       json_payload = {ship_size: 3, start_space: 'A1', end_space: 'A3', game_id: game.id}.to_json
 
       post "/api/v1/games/#{game.id}/ships", params: json_payload, headers: headers
+
+      expect(respone).to be_successful
 
       game_state = JSON.parse(response.body, symbolize_names: true)
 
@@ -33,6 +35,8 @@ describe 'Api::V1::Ships' do
 
       post "/api/v1/games/#{game.id}/ships", params: json_payload, headers: headers
 
+      expect(respone).to be_successful
+      
       game_state = JSON.parse(response.body, symbolize_names: true)
 
       expect(game_state[:id]).to eq(Game.last.id)

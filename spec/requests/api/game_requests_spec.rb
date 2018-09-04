@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Games API' do
+describe 'Api::V1::Games' do
   context('POST /api/v1/games') do
     it "creates a game" do
       create(:user, token: ENV['BATTLESHIFT_API_KEY'] )
